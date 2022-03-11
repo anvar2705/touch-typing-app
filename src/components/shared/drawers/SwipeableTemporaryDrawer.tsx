@@ -5,6 +5,7 @@ import List from '@mui/material/List'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemButton from '@mui/material/ListItemButton'
 import { MENU_DRAWER_ANCHOR, MENU_ITEMS } from '../../../constants/constants'
+import { NavLink } from 'react-router-dom'
 
 type TSwipeableTemporaryDrawerProps = {
   isOpenDrawer: boolean
@@ -37,9 +38,15 @@ const SwipeableTemporaryDrawer: React.FC<TSwipeableTemporaryDrawerProps> = ({
     >
       <List>
         {MENU_ITEMS.map((menuItem, index) => (
-          <ListItemButton key={menuItem}>
-            <ListItemText primary={menuItem} />
-          </ListItemButton>
+          <NavLink
+            to={menuItem.href}
+            key={menuItem.href}
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <ListItemButton key={menuItem.title}>
+              <ListItemText primary={menuItem.title} disableTypography sx={{ fontSize: '20px' }} />
+            </ListItemButton>
+          </NavLink>
         ))}
       </List>
     </Box>
