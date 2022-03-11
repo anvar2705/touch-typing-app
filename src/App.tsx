@@ -1,7 +1,12 @@
 import React from 'react'
+import AppBarCustom from './components/shared/appbars/AppBarCustom'
 
 const App = () => {
-  return <div>Start</div>
+  return (
+    <>
+      <AppBarCustom />
+    </>
+  )
 }
 
 export default App
