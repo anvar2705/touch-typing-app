@@ -18,7 +18,7 @@ const ButtonAppBar = () => {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position='static' sx={{ backgroundColor: '#777' }}>
+        <AppBar position='static'>
           <Toolbar>
             <IconButton
               onClick={onClick}
