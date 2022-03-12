@@ -17,7 +17,10 @@ const InputField = () => {
   }, [value, isTestFinished, dispatch])
 
   useEffect(() => {
-    if (isTestStarted) focusInput.current?.focus()
+    if (isTestStarted) {
+      setValue('')
+      focusInput.current?.focus()
+    }
   }, [focusInput, isTestStarted])
 
   return (

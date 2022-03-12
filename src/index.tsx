@@ -5,14 +5,14 @@ import App from './App'
 import { setupStore } from './store/store'
 import { Provider } from 'react-redux'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { orange } from '@mui/material/colors'
+import { amber, blueGrey } from '@mui/material/colors'
 
 const store = setupStore()
 
 const theme = createTheme({
   palette: {
-    primary: { main: '#f5f5f6', light: '#fff', dark: '#c2c2c3' },
-    secondary: { main: orange[800], light: '#ff9d3f', dark: '#b53d00' },
+    primary: { main: blueGrey[600], light: '#819ca9', dark: '#29434e' },
+    secondary: { main: amber[700], light: '#ffd149', dark: '#c67100' },
   },
 })
 

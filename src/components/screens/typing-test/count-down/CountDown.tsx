@@ -38,7 +38,6 @@ const Countdown = () => {
       sx={(theme) => ({
         width: 200,
         height: 150,
-        backgroundColor: theme.palette.primary.light,
         margin: '10px auto',
       })}
     >
