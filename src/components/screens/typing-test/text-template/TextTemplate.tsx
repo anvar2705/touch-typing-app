@@ -1,8 +1,9 @@
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import React, { useEffect, useState } from 'react'
-import { TEXT_TEMPLATES } from '../../../../constants/textTemplates'
-import { Container, Paper } from '@mui/material'
+import { Paper } from '@mui/material'
+import { TEXT_TEMPLATES } from 'constants/textTemplates'
+import Timer from 'components/screens/typing-test/timer/Timer'
 
 const TextTemplate = () => {
   const [name, setName] = useState('')
@@ -27,31 +28,37 @@ const TextTemplate = () => {
       elevation={4}
       sx={{
         width: '100%',
-        height: '240px',
+        height: '260px',
         margin: '26px auto',
         padding: '20px',
+        boxSizing: 'border-box',
       }}
     >
-      <Container maxWidth='sm'>
-        <TextField
-          value={name}
-          onChange={(event) => {
-            setName(event.target.value)
-          }}
-          label='Введите имя'
-          fullWidth
-          size='small'
-          sx={{ marginBottom: '10px' }}
-        />
-        <Autocomplete
-          disableClearable
-          id='text-template'
-          options={TEXT_TEMPLATES.map((item) => `Test ${item.id}`)}
-          onChange={onTextTemplateSelect}
-          renderInput={(params) => <TextField {...params} label='Выберите тест' size='small' />}
-          sx={{ marginBottom: '10px' }}
-        />
-      </Container>
+      <div style={{ display: 'flex' }}>
+        <div style={{ width: '50%' }}>
+          <TextField
+            value={name}
+            onChange={(event) => {
+              setName(event.target.value)
+            }}
+            label='Введите имя'
+            fullWidth
+            size='small'
+            sx={{ marginBottom: '10px' }}
+          />
+          <Autocomplete
+            disableClearable
+            id='text-template'
+            options={TEXT_TEMPLATES.map((item) => `Test ${item.id}`)}
+            onChange={onTextTemplateSelect}
+            renderInput={(params) => <TextField {...params} label='Выберите тест' size='small' />}
+            sx={{ marginBottom: '10px' }}
+          />
+        </div>
+        <div style={{ fontSize: '22px', margin: '20px auto' }}>
+          <Timer />
+        </div>
+      </div>
       <div
         style={{
           border: '1px solid rgb(180, 180, 180)',

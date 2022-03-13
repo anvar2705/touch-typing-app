@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import roundNumberTo from '../../utils/roundNumberTo'
 
 const initialState = {
   resultTime: 0,
@@ -25,7 +26,7 @@ const UISlice = createSlice({
       state.isTestFinished = action.payload
     },
     setResult: (state) => {
-      state.result = state.text.length / (state.resultTime / 600)
+      state.result = roundNumberTo(state.text.length / (state.resultTime / 600), 0)
     },
   },
 })

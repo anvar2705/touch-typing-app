@@ -1,18 +1,11 @@
-import Button from '@mui/material/Button'
-import React, { useState } from 'react'
-import { Paper } from '@mui/material'
-import Typography from '@mui/material/Typography'
-import TimerDisplay from './TimerDisplay'
-import {
-  setIsTestFinished,
-  setIsTestStarted,
-  setResultTime,
-} from '../../../../store/reducers/UISlice'
-import { useAppDispatch } from '../../../../hooks/redux'
+import React, { useEffect, useState } from 'react'
+import { useAppDispatch, useAppSelector } from 'hooks/redux'
+import { setResultTime } from 'store/reducers/UISlice'
 
 const Timer = () => {
   const [time, setTime] = useState({ m: 0, s: 0, ms: 0 })
   const [interv, setInterv] = useState<NodeJS.Timeout>()
+  const { isTestStarted, isTestFinished } = useAppSelector((state) => state.UIReducer)
   const dispatch = useAppDispatch()
   let { m, s, ms } = time
 
@@ -28,41 +21,27 @@ const Timer = () => {
     }
     return setTime({ m, s, ms })
   }
-  const onStartTimer = () => {
-    setInterv(setInterval(run, 100))
-    dispatch(setIsTestFinished(false))
-    dispatch(setIsTestStarted(true))
-  }
-  const onStopTimer = () => {
-    if (interv) clearInterval(interv)
-    setTime({ m: 0, s: 0, ms: 0 })
-    dispatch(setResultTime(m * 60 + s + ms / 10))
-    dispatch(setIsTestStarted(false))
-    dispatch(setIsTestFinished(true))
-  }
+  useEffect(() => {
+    if (isTestStarted) {
+      setInterv(setInterval(run, 100))
+    }
+  }, [isTestStarted])
+
+  useEffect(() => {
+    if (isTestFinished) {
+      if (interv) clearInterval(interv)
+      dispatch(setResultTime(m * 60 + s + ms / 10))
+      setTime({ m: 0, s: 0, ms: 0 })
+    }
+  }, [isTestFinished, m, s, ms, dispatch, interv])
 
   return (
-    <Paper
-      elevation={4}
-      sx={{
-        width: 200,
-        height: 150,
-        margin: '10px auto',
-      }}
-    >
-      <Typography align='center' gutterBottom variant='h6' sx={{ paddingTop: '10px' }}>
-        Время
-      </Typography>
-      <TimerDisplay time={time} />
-      <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '20px' }}>
-        <Button onClick={onStartTimer} color='secondary' variant='contained'>
-          Старт
-        </Button>
-        <Button onClick={onStopTimer} color='secondary' variant='outlined'>
-          Стоп
-        </Button>
-      </div>
-    </Paper>
+    <div style={{ width: '188px', border: '1px solid #bbb', padding: '10px', borderRadius: '5px' }}>
+      <span>Время: </span>
+      <span>{time.m >= 10 ? time.m : `0${time.m}`}:</span>
+      <span>{time.s >= 10 ? time.s : `0${time.s}`}:</span>
+      <span>{time.ms}0</span>
+    </div>
   )
 }
 export default Timer

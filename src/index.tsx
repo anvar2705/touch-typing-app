@@ -2,18 +2,34 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
-import { setupStore } from './store/store'
+import { setupStore } from 'store/store'
 import { Provider } from 'react-redux'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { amber, blueGrey } from '@mui/material/colors'
+import { blueGrey, orange } from '@mui/material/colors'
 
 const store = setupStore()
 
 const theme = createTheme({
   palette: {
-    primary: { main: blueGrey[600], light: '#819ca9', dark: '#29434e' },
-    secondary: { main: amber[700], light: '#ffd149', dark: '#c67100' },
+    primary: { main: blueGrey[100], light: '#ffffff', dark: '#9ea7aa' },
+    secondary: { main: orange[300], light: '#ffe97d', dark: '#c88719' },
   },
+  typography: {
+    allVariants: {
+      fontFamily: "'Montserrat', sans-serif",
+      letterSpacing: '0em',
+      fontWeight: 500,
+    },
+  },
+  // components: {
+  //   MuiButton: {
+  //     styleOverrides: {
+  //       // root: {
+  //       //   letterSpacing: '0.1em',
+  //       // },
+  //     },
+  //   },
+  // },
 })
 
 ReactDOM.render(
