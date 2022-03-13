@@ -20,7 +20,7 @@ const initialState: UISliceInitialState = {
   result: 0,
 }
 
-const UISlice = createSlice({
+const TypingTestSlice = createSlice({
   name: 'UI',
   initialState,
   reducers: {
@@ -46,7 +46,7 @@ const UISlice = createSlice({
   },
 })
 
-export default UISlice.reducer
+export default TypingTestSlice.reducer
 export const {
   setResultTime,
   setText,
@@ -54,4 +54,4 @@ export const {
   setIsTestFinished,
   calcResult,
   setIsShowResult,
-} = UISlice.actions
+} = TypingTestSlice.actions

@@ -11,7 +11,7 @@ const TextTemplate = () => {
   const [name, setName] = useState<string>(DEFAULT_USERNAME)
   const [templateId, setTemplateId] = useState('')
   const [text, setText] = useState('')
-  const { isTestStarted } = useAppSelector((state) => state.UIReducer)
+  const { isTestStarted } = useAppSelector((state) => state.TypingTestReducer)
 
   const onTextTemplateSelect = (event: React.SyntheticEvent, value: string) => {
     setTemplateId(value)

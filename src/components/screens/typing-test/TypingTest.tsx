@@ -4,13 +4,15 @@ import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import TextTemplate from './text-template/TextTemplate'
 import InputField from './input-field/InputField'
 import Button from '@mui/material/Button'
-import { setIsTestFinished, setIsTestStarted } from 'store/reducers/UISlice'
+import { setIsTestFinished, setIsTestStarted } from 'store/reducers/TypingTestSlice'
 import TestResult from 'components/screens/typing-test/test-result/TestResult'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
 const TypingTest = () => {
-  const { isTestStarted, isTestFinished, isShowResult } = useAppSelector((state) => state.UIReducer)
+  const { isTestStarted, isTestFinished, isShowResult } = useAppSelector(
+    (state) => state.TypingTestReducer
+  )
   const dispatch = useAppDispatch()
 
   const onToggleStart = () => {
