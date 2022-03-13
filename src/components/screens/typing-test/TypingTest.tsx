@@ -5,34 +5,45 @@ import TextTemplate from './text-template/TextTemplate'
 import InputField from './input-field/InputField'
 import Button from '@mui/material/Button'
 import { setIsTestFinished, setIsTestStarted } from 'store/reducers/UISlice'
+import TestResult from 'components/screens/typing-test/test-result/TestResult'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 const TypingTest = () => {
-  const { result, isTestStarted, isTestFinished } = useAppSelector((state) => state.UIReducer)
+  const { isTestStarted, isTestFinished, isShowResult } = useAppSelector((state) => state.UIReducer)
   const dispatch = useAppDispatch()
 
   const onToggleStart = () => {
     if (!isTestStarted) {
-      dispatch(setIsTestFinished(false))
       dispatch(setIsTestStarted(true))
     } else if (isTestStarted && !isTestFinished) {
-      dispatch(setIsTestStarted(false))
       dispatch(setIsTestFinished(true))
     } else return
   }
   return (
     <Container maxWidth='lg'>
-      <TextTemplate />
-      <Button
-        onClick={onToggleStart}
-        fullWidth
-        color='secondary'
-        variant='contained'
-        style={{ marginBottom: '20px' }}
-      >
-        {!isTestStarted ? 'Начать' : 'Завершить'}{' '}
-      </Button>
-      <InputField />
-      {isTestFinished ? <div>Результат: {result}</div> : null}
+      <Box sx={{ margin: '30px auto' }}>
+        <Typography variant='h5' textAlign='center' paragraph>
+          Тест скорости печати
+        </Typography>
+        {!isShowResult ? (
+          <>
+            <TextTemplate />
+            <Button
+              onClick={onToggleStart}
+              fullWidth
+              color='secondary'
+              variant='contained'
+              style={{ margin: '20px auto' }}
+            >
+              {!isTestStarted ? 'Начать' : 'Завершить'}
+            </Button>
+            <InputField />
+          </>
+        ) : (
+          <TestResult />
+        )}
+      </Box>
     </Container>
   )
 }

@@ -4,11 +4,14 @@ import React, { useEffect, useState } from 'react'
 import { Paper } from '@mui/material'
 import { TEXT_TEMPLATES } from 'constants/textTemplates'
 import Timer from 'components/screens/typing-test/timer/Timer'
+import { useAppSelector } from 'hooks/redux'
+import { DEFAULT_USERNAME } from 'constants/constants'
 
 const TextTemplate = () => {
-  const [name, setName] = useState('')
+  const [name, setName] = useState<string>(DEFAULT_USERNAME)
   const [templateId, setTemplateId] = useState('')
   const [text, setText] = useState('')
+  const { isTestStarted } = useAppSelector((state) => state.UIReducer)
 
   const onTextTemplateSelect = (event: React.SyntheticEvent, value: string) => {
     setTemplateId(value)
@@ -29,7 +32,6 @@ const TextTemplate = () => {
       sx={{
         width: '100%',
         height: '260px',
-        margin: '26px auto',
         padding: '20px',
         boxSizing: 'border-box',
       }}
@@ -38,6 +40,12 @@ const TextTemplate = () => {
         <div style={{ width: '50%' }}>
           <TextField
             value={name}
+            onFocus={() => {
+              if (name === DEFAULT_USERNAME) setName('')
+            }}
+            onBlur={() => {
+              if (name.length === 0) setName(DEFAULT_USERNAME)
+            }}
             onChange={(event) => {
               setName(event.target.value)
             }}
@@ -45,14 +53,16 @@ const TextTemplate = () => {
             fullWidth
             size='small'
             sx={{ marginBottom: '10px' }}
+            disabled={isTestStarted}
           />
           <Autocomplete
-            disableClearable
             id='text-template'
             options={TEXT_TEMPLATES.map((item) => `Test ${item.id}`)}
             onChange={onTextTemplateSelect}
             renderInput={(params) => <TextField {...params} label='Выберите тест' size='small' />}
             sx={{ marginBottom: '10px' }}
+            disableClearable
+            disabled={isTestStarted}
           />
         </div>
         <div style={{ fontSize: '22px', margin: '20px auto' }}>

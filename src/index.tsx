@@ -14,22 +14,22 @@ const theme = createTheme({
     primary: { main: blueGrey[100], light: '#ffffff', dark: '#9ea7aa' },
     secondary: { main: orange[300], light: '#ffe97d', dark: '#c88719' },
   },
-  typography: {
-    allVariants: {
-      fontFamily: "'Montserrat', sans-serif",
-      letterSpacing: '0em',
-      fontWeight: 500,
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          boxSizing: 'border-box',
+        },
+      },
     },
   },
-  // components: {
-  //   MuiButton: {
-  //     styleOverrides: {
-  //       // root: {
-  //       //   letterSpacing: '0.1em',
-  //       // },
-  //     },
-  //   },
-  // },
 })
 
 ReactDOM.render(

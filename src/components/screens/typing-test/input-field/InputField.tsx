@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { TextField } from '@mui/material'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
-import { setResult, setText } from 'store/reducers/UISlice'
+import { calcResult, setIsShowResult, setText } from 'store/reducers/UISlice'
 
 const InputField = () => {
   const [value, setValue] = useState('')
@@ -12,7 +12,8 @@ const InputField = () => {
   useEffect(() => {
     if (isTestFinished) {
       dispatch(setText(value))
-      dispatch(setResult())
+      dispatch(calcResult())
+      dispatch(setIsShowResult(true))
     }
   }, [value, isTestFinished, dispatch])
 

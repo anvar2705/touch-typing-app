@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import { setResultTime } from 'store/reducers/UISlice'
+import { IResultTime } from 'models/typingTest'
 
 const Timer = () => {
-  const [time, setTime] = useState({ m: 0, s: 0, ms: 0 })
+  const [time, setTime] = useState<IResultTime>({ m: 0, s: 0, ms: 0 })
   const [interv, setInterv] = useState<NodeJS.Timeout>()
   const { isTestStarted, isTestFinished } = useAppSelector((state) => state.UIReducer)
   const dispatch = useAppDispatch()
@@ -30,13 +31,13 @@ const Timer = () => {
   useEffect(() => {
     if (isTestFinished) {
       if (interv) clearInterval(interv)
-      dispatch(setResultTime(m * 60 + s + ms / 10))
+      dispatch(setResultTime(time))
       setTime({ m: 0, s: 0, ms: 0 })
     }
-  }, [isTestFinished, m, s, ms, dispatch, interv])
+  }, [isTestFinished, time, dispatch, interv])
 
   return (
-    <div style={{ width: '188px', border: '1px solid #bbb', padding: '10px', borderRadius: '5px' }}>
+    <div style={{ border: '1px solid #bbb', padding: '10px', borderRadius: '5px' }}>
       <span>Время: </span>
       <span>{time.m >= 10 ? time.m : `0${time.m}`}:</span>
       <span>{time.s >= 10 ? time.s : `0${time.s}`}:</span>
