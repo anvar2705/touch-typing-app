@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState = {
-  time: 0,
+  resultTime: 0,
   text: '',
   isTestStarted: false,
   isTestFinished: false,
@@ -12,8 +12,8 @@ const UISlice = createSlice({
   name: 'UI',
   initialState,
   reducers: {
-    setTime: (state, action: PayloadAction<number>) => {
-      state.time = action.payload
+    setResultTime: (state, action: PayloadAction<number>) => {
+      state.resultTime = action.payload
     },
     setText: (state, action: PayloadAction<string>) => {
       state.text = action.payload
@@ -25,10 +25,11 @@ const UISlice = createSlice({
       state.isTestFinished = action.payload
     },
     setResult: (state) => {
-      state.result = state.text.length / (state.time / 600)
+      state.result = state.text.length / (state.resultTime / 600)
     },
   },
 })
 
 export default UISlice.reducer
-export const { setTime, setText, setIsTestStarted, setIsTestFinished, setResult } = UISlice.actions
+export const { setResultTime, setText, setIsTestStarted, setIsTestFinished, setResult } =
+  UISlice.actions

@@ -1,5 +1,5 @@
 import React from 'react'
-import Countdown from './count-down/CountDown'
+import Timer from './timer/Timer'
 import { Container } from '@mui/material'
 import InputField from './input-field/InputField'
 import { useAppSelector } from '../../../hooks/redux'
@@ -10,7 +10,7 @@ const TypingTest = () => {
   return (
     <Container maxWidth='lg'>
       <TextTemplate />
-      <Countdown />
+      <Timer />
       <InputField />
       {isTestFinished ? <div>Результат: {result}</div> : null}
     </Container>
