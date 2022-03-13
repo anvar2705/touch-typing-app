@@ -1,4 +1,3 @@
-import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -6,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useState } from 'react'
-import SwipeableTemporaryDrawer from '../drawers/SwipeableTemporaryDrawer'
+import SwipeableTemporaryDrawer from 'components/shared/drawers/SwipeableTemporaryDrawer'
 
 const ButtonAppBar = () => {
   const [isOpenDrawer, setIsOpenDrawer] = useState(false)
@@ -18,11 +17,11 @@ const ButtonAppBar = () => {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position='static' sx={{ backgroundColor: '#777' }}>
+        <AppBar position='static' sx={{ height: 40, justifyContent: 'center' }}>
           <Toolbar>
             <IconButton
               onClick={onClick}
-              size='large'
+              size='small'
               edge='start'
               color='inherit'
               aria-label='menu'
@@ -30,8 +29,8 @@ const ButtonAppBar = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant='h5' component='div' sx={{ flexGrow: 1, textAlign: 'center' }}>
-              Touch Typing App
+            <Typography component='div' sx={{ marginLeft: '20px' }}>
+              TypingLand
             </Typography>
           </Toolbar>
         </AppBar>

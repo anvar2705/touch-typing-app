@@ -5,3 +5,5 @@ export const MENU_ITEMS = [
 ]
 
 export const MENU_DRAWER_ANCHOR = 'left'
+
+export const DEFAULT_USERNAME = 'Студент'
