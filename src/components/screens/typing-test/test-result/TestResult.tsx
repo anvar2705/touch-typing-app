@@ -2,16 +2,25 @@ import React from 'react'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import { Button, List, ListItem, ListItemText, Paper } from '@mui/material'
 import Typography from '@mui/material/Typography'
-import { setIsShowResult, setIsTestFinished, setIsTestStarted } from 'store/reducers/UISlice'
+import {
+  setIsShowResult,
+  setIsTestFinished,
+  setIsTestStarted,
+  setTextTemplate,
+  setUsername,
+} from 'store/reducers/TypingTestSlice'
+import { DEFAULT_USERNAME } from 'constants/constants'
 
 const TestResult = () => {
-  const { result, resultTime } = useAppSelector((state) => state.UIReducer)
+  const { result, resultTime } = useAppSelector((state) => state.TypingTestReducer)
   const dispatch = useAppDispatch()
 
   const onStartAgain = () => {
     dispatch(setIsTestStarted(false))
     dispatch(setIsTestFinished(false))
     dispatch(setIsShowResult(false))
+    dispatch(setTextTemplate(''))
+    dispatch(setUsername(DEFAULT_USERNAME))
   }
 
   return (

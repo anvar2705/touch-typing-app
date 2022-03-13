@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { TextField } from '@mui/material'
+import { Paper, TextField } from '@mui/material'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
-import { calcResult, setIsShowResult, setText } from 'store/reducers/UISlice'
+import { calcResult, setIsShowResult, setText } from 'store/reducers/TypingTestSlice'
 
 const InputField = () => {
   const [value, setValue] = useState('')
   const focusInput = useRef<HTMLTextAreaElement>()
-  const { isTestStarted, isTestFinished } = useAppSelector((state) => state.UIReducer)
+  const { isTestStarted, isTestFinished } = useAppSelector((state) => state.TypingTestReducer)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -25,17 +25,19 @@ const InputField = () => {
   }, [focusInput, isTestStarted])
 
   return (
-    <TextField
-      value={value}
-      onChange={(event) => {
-        setValue(event.target.value)
-      }}
-      inputRef={focusInput}
-      multiline
-      rows={5}
-      fullWidth
-      disabled={!isTestStarted}
-    />
+    <Paper elevation={4}>
+      <TextField
+        value={value}
+        onChange={(event) => {
+          setValue(event.target.value)
+        }}
+        inputRef={focusInput}
+        multiline
+        rows={5}
+        fullWidth
+        disabled={!isTestStarted}
+      />
+    </Paper>
   )
 }
 

@@ -1,29 +1,42 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import roundNumberTo from '../../utils/roundNumberTo'
-import { IResultTime } from 'models/typingTest'
+import { IResultTableItem, IResultTime } from 'models/typingTest'
+import { DEFAULT_USERNAME } from 'constants/constants'
 
 interface UISliceInitialState {
+  username: string
+  textTemplate: string
   resultTime: IResultTime
   text: string
   isTestStarted: boolean
   isTestFinished: boolean
   isShowResult: boolean
   result: number
+  resultTable: Array<IResultTableItem>
 }
 
 const initialState: UISliceInitialState = {
+  username: DEFAULT_USERNAME,
+  textTemplate: '',
   resultTime: { m: 0, s: 0, ms: 0 },
   text: '',
   isTestStarted: false,
   isTestFinished: false,
   isShowResult: false,
   result: 0,
+  resultTable: [],
 }
 
-const UISlice = createSlice({
-  name: 'UI',
+const TypingTestSlice = createSlice({
+  name: 'TypingTest',
   initialState,
   reducers: {
+    setUsername: (state, action: PayloadAction<string>) => {
+      state.username = action.payload
+    },
+    setTextTemplate: (state, action: PayloadAction<string>) => {
+      state.textTemplate = action.payload
+    },
     setResultTime: (state, action: PayloadAction<IResultTime>) => {
       state.resultTime = action.payload
     },
@@ -41,12 +54,20 @@ const UISlice = createSlice({
     },
     calcResult: (state) => {
       const minutes = state.resultTime.m + state.resultTime.s / 60 + state.resultTime.ms / 600
-      state.result = roundNumberTo(state.text.length / minutes, 0)
+      const result = roundNumberTo(state.text.length / minutes, 0)
+      state.result = result
+      state.resultTable.push({
+        id: state.resultTable.length,
+        name: state.username,
+        result,
+        time: state.resultTime,
+        template: state.textTemplate,
+      })
     },
   },
 })
 
-export default UISlice.reducer
+export default TypingTestSlice.reducer
 export const {
   setResultTime,
   setText,
@@ -54,4 +75,6 @@ export const {
   setIsTestFinished,
   calcResult,
   setIsShowResult,
-} = UISlice.actions
+  setUsername,
+  setTextTemplate,
+} = TypingTestSlice.actions

@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import UIReducer from 'store/reducers/UISlice'
+import TypingTestReducer from 'store/reducers/TypingTestSlice'
 
 const rootReducer = combineReducers({
-  UIReducer,
+  TypingTestReducer,
 })
 
 export const setupStore = () => {

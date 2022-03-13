@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
-import { setResultTime } from 'store/reducers/UISlice'
+import { setResultTime } from 'store/reducers/TypingTestSlice'
 import { IResultTime } from 'models/typingTest'
 
 const Timer = () => {
   const [time, setTime] = useState<IResultTime>({ m: 0, s: 0, ms: 0 })
   const [interv, setInterv] = useState<NodeJS.Timeout>()
-  const { isTestStarted, isTestFinished } = useAppSelector((state) => state.UIReducer)
+  const { isTestStarted, isTestFinished } = useAppSelector((state) => state.TypingTestReducer)
   const dispatch = useAppDispatch()
   let { m, s, ms } = time
 
