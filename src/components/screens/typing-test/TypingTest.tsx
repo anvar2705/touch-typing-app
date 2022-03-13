@@ -8,9 +8,10 @@ import { setIsTestFinished, setIsTestStarted } from 'store/reducers/TypingTestSl
 import TestResult from 'components/screens/typing-test/test-result/TestResult'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import ResultTable from 'components/screens/typing-test/result-table/ResultTable'
 
 const TypingTest = () => {
-  const { isTestStarted, isTestFinished, isShowResult } = useAppSelector(
+  const { isTestStarted, isTestFinished, isShowResult, textTemplate } = useAppSelector(
     (state) => state.TypingTestReducer
   )
   const dispatch = useAppDispatch()
@@ -37,6 +38,7 @@ const TypingTest = () => {
               color='secondary'
               variant='contained'
               style={{ margin: '20px auto' }}
+              disabled={textTemplate === ''}
             >
               {!isTestStarted ? 'Начать' : 'Завершить'}
             </Button>
@@ -45,6 +47,7 @@ const TypingTest = () => {
         ) : (
           <TestResult />
         )}
+        <ResultTable />
       </Box>
     </Container>
   )

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { TextField } from '@mui/material'
+import { Paper, TextField } from '@mui/material'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import { calcResult, setIsShowResult, setText } from 'store/reducers/TypingTestSlice'
 
@@ -25,17 +25,19 @@ const InputField = () => {
   }, [focusInput, isTestStarted])
 
   return (
-    <TextField
-      value={value}
-      onChange={(event) => {
-        setValue(event.target.value)
-      }}
-      inputRef={focusInput}
-      multiline
-      rows={5}
-      fullWidth
-      disabled={!isTestStarted}
-    />
+    <Paper elevation={4}>
+      <TextField
+        value={value}
+        onChange={(event) => {
+          setValue(event.target.value)
+        }}
+        inputRef={focusInput}
+        multiline
+        rows={5}
+        fullWidth
+        disabled={!isTestStarted}
+      />
+    </Paper>
   )
 }
 

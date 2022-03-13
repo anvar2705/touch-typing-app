@@ -6,7 +6,10 @@ import {
   setIsShowResult,
   setIsTestFinished,
   setIsTestStarted,
+  setTextTemplate,
+  setUsername,
 } from 'store/reducers/TypingTestSlice'
+import { DEFAULT_USERNAME } from 'constants/constants'
 
 const TestResult = () => {
   const { result, resultTime } = useAppSelector((state) => state.TypingTestReducer)
@@ -16,6 +19,8 @@ const TestResult = () => {
     dispatch(setIsTestStarted(false))
     dispatch(setIsTestFinished(false))
     dispatch(setIsShowResult(false))
+    dispatch(setTextTemplate(''))
+    dispatch(setUsername(DEFAULT_USERNAME))
   }
 
   return (
