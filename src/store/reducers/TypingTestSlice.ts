@@ -65,6 +65,16 @@ const TypingTestSlice = createSlice({
         template: `Вариант ${state.textTemplate.id}`,
       })
     },
+    clearResult: (state) => {
+      state.username = DEFAULT_USERNAME
+      state.textTemplate = { id: 0, value: '' }
+      state.resultTime = { m: 0, s: 0, ms: 0 }
+      state.text = ''
+      state.isTestStarted = false
+      state.isTestFinished = false
+      state.isShowResult = false
+      state.result = 0
+    },
   },
 })
 
@@ -78,4 +88,5 @@ export const {
   setIsShowResult,
   setUsername,
   setTextTemplate,
+  clearResult,
 } = TypingTestSlice.actions
