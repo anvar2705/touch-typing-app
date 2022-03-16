@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import roundNumberTo from '../../utils/roundNumberTo'
-import { IResultTableItem, IResultTime } from 'models/typingTest'
+import { IResultTableItem, IResultTime } from 'models/typingTestModels'
 import { DEFAULT_USERNAME } from 'constants/constants'
+import { ITextTemplate } from 'constants/textTemplates'
 
 interface UISliceInitialState {
   username: string
-  textTemplate: string
+  textTemplate: ITextTemplate
   resultTime: IResultTime
   text: string
   isTestStarted: boolean
@@ -17,7 +18,7 @@ interface UISliceInitialState {
 
 const initialState: UISliceInitialState = {
   username: DEFAULT_USERNAME,
-  textTemplate: '',
+  textTemplate: { id: 0, value: '' },
   resultTime: { m: 0, s: 0, ms: 0 },
   text: '',
   isTestStarted: false,
@@ -34,7 +35,7 @@ const TypingTestSlice = createSlice({
     setUsername: (state, action: PayloadAction<string>) => {
       state.username = action.payload
     },
-    setTextTemplate: (state, action: PayloadAction<string>) => {
+    setTextTemplate: (state, action: PayloadAction<ITextTemplate>) => {
       state.textTemplate = action.payload
     },
     setResultTime: (state, action: PayloadAction<IResultTime>) => {
@@ -61,8 +62,18 @@ const TypingTestSlice = createSlice({
         name: state.username,
         result,
         time: state.resultTime,
-        template: state.textTemplate,
+        template: `Вариант ${state.textTemplate.id}`,
       })
+    },
+    clearResult: (state) => {
+      state.username = DEFAULT_USERNAME
+      state.textTemplate = { id: 0, value: '' }
+      state.resultTime = { m: 0, s: 0, ms: 0 }
+      state.text = ''
+      state.isTestStarted = false
+      state.isTestFinished = false
+      state.isShowResult = false
+      state.result = 0
     },
   },
 })
@@ -77,4 +88,5 @@ export const {
   setIsShowResult,
   setUsername,
   setTextTemplate,
+  clearResult,
 } = TypingTestSlice.actions
