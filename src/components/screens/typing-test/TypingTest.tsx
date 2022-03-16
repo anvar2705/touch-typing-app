@@ -38,7 +38,7 @@ const TypingTest = () => {
               color='secondary'
               variant='contained'
               style={{ margin: '20px auto' }}
-              disabled={textTemplate === ''}
+              disabled={textTemplate.value === ''}
             >
               {!isTestStarted ? 'Начать' : 'Завершить'}
             </Button>

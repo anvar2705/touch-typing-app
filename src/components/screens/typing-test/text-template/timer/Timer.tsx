@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import { setResultTime } from 'store/reducers/TypingTestSlice'
-import { IResultTime } from 'models/typingTest'
+import { IResultTime } from 'models/typingTestModels'
 
 const Timer = () => {
   const [time, setTime] = useState<IResultTime>({ m: 0, s: 0, ms: 0 })

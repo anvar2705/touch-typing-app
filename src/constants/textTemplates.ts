@@ -1,6 +1,9 @@
-type TextTemplates = Array<{ id: number; value: string }>
+export interface ITextTemplate {
+  id: number
+  value: string
+}
 
-export const TEXT_TEMPLATES: TextTemplates = [
+export const TEXT_TEMPLATES: Array<ITextTemplate> = [
   {
     id: 0,
     value:

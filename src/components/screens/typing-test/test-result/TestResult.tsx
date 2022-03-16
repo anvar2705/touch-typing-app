@@ -19,7 +19,7 @@ const TestResult = () => {
     dispatch(setIsTestStarted(false))
     dispatch(setIsTestFinished(false))
     dispatch(setIsShowResult(false))
-    dispatch(setTextTemplate(''))
+    dispatch(setTextTemplate({ id: 0, value: '' }))
     dispatch(setUsername(DEFAULT_USERNAME))
   }
 
