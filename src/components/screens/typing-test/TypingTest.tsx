@@ -11,9 +11,8 @@ import Typography from '@mui/material/Typography'
 import ResultTable from 'components/screens/typing-test/result-table/ResultTable'
 
 const TypingTest = () => {
-  const { isTestStarted, isTestFinished, isShowResult, textTemplate } = useAppSelector(
-    (state) => state.TypingTestReducer
-  )
+  const { isTestStarted, isTestFinished, isShowResult, textTemplate, isTextEntered } =
+    useAppSelector((state) => state.TypingTestReducer)
   const dispatch = useAppDispatch()
 
   const onToggleStart = () => {
@@ -38,7 +37,7 @@ const TypingTest = () => {
               color='secondary'
               variant='contained'
               style={{ margin: '20px auto' }}
-              disabled={textTemplate.value === ''}
+              disabled={textTemplate.value === '' || (!isTextEntered && isTestStarted)}
             >
               {!isTestStarted ? 'Начать' : 'Завершить'}
             </Button>

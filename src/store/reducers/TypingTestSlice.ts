@@ -8,24 +8,26 @@ interface UISliceInitialState {
   username: string
   textTemplate: ITextTemplate
   resultTime: IResultTime
-  text: string
+  resultText: string
   isTestStarted: boolean
   isTestFinished: boolean
   isShowResult: boolean
   result: number
   resultTable: Array<IResultTableItem>
+  isTextEntered: boolean
 }
 
 const initialState: UISliceInitialState = {
   username: DEFAULT_USERNAME,
   textTemplate: { id: 0, value: '' },
   resultTime: { m: 0, s: 0, ms: 0 },
-  text: '',
+  resultText: '',
   isTestStarted: false,
   isTestFinished: false,
   isShowResult: false,
   result: 0,
   resultTable: [],
+  isTextEntered: false,
 }
 
 const TypingTestSlice = createSlice({
@@ -41,8 +43,8 @@ const TypingTestSlice = createSlice({
     setResultTime: (state, action: PayloadAction<IResultTime>) => {
       state.resultTime = action.payload
     },
-    setText: (state, action: PayloadAction<string>) => {
-      state.text = action.payload
+    setResultText: (state, action: PayloadAction<string>) => {
+      state.resultText = action.payload
     },
     setIsTestStarted: (state, action: PayloadAction<boolean>) => {
       state.isTestStarted = action.payload
@@ -53,9 +55,12 @@ const TypingTestSlice = createSlice({
     setIsShowResult: (state, action: PayloadAction<boolean>) => {
       state.isShowResult = action.payload
     },
+    setIsTextEntered: (state, action: PayloadAction<boolean>) => {
+      state.isTextEntered = action.payload
+    },
     calcResult: (state) => {
       const minutes = state.resultTime.m + state.resultTime.s / 60 + state.resultTime.ms / 600
-      const result = roundNumberTo(state.text.length / minutes, 0)
+      const result = roundNumberTo(state.resultText.length / minutes, 0)
       state.result = result
       state.resultTable.push({
         id: state.resultTable.length,
@@ -69,11 +74,12 @@ const TypingTestSlice = createSlice({
       state.username = DEFAULT_USERNAME
       state.textTemplate = { id: 0, value: '' }
       state.resultTime = { m: 0, s: 0, ms: 0 }
-      state.text = ''
+      state.resultText = ''
       state.isTestStarted = false
       state.isTestFinished = false
       state.isShowResult = false
       state.result = 0
+      state.isTextEntered = false
     },
   },
 })
@@ -81,7 +87,7 @@ const TypingTestSlice = createSlice({
 export default TypingTestSlice.reducer
 export const {
   setResultTime,
-  setText,
+  setResultText,
   setIsTestStarted,
   setIsTestFinished,
   calcResult,
@@ -89,4 +95,5 @@ export const {
   setUsername,
   setTextTemplate,
   clearResult,
+  setIsTextEntered,
 } = TypingTestSlice.actions

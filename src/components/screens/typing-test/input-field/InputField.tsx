@@ -1,10 +1,15 @@
 import React, { KeyboardEvent, useEffect, useRef, useState } from 'react'
 import { Paper, TextField } from '@mui/material'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
-import { calcResult, setIsShowResult, setText } from 'store/reducers/TypingTestSlice'
+import {
+  calcResult,
+  setIsShowResult,
+  setIsTextEntered,
+  setResultText,
+} from 'store/reducers/TypingTestSlice'
 
 const InputField = () => {
-  const [value, setValue] = useState('')
+  const [inputText, setInputText] = useState('')
   const [textTemplateSplitted, setTextTemplateSplitted] = useState<Array<string>>([])
   const [letterIndex, setLetterIndex] = useState(0)
   const focusInput = useRef<HTMLTextAreaElement>()
@@ -16,11 +21,11 @@ const InputField = () => {
   // when the test is over
   useEffect(() => {
     if (isTestFinished) {
-      dispatch(setText(value))
+      dispatch(setResultText(inputText))
       dispatch(calcResult())
       dispatch(setIsShowResult(true))
     }
-  }, [value, isTestFinished, dispatch])
+  }, [inputText, isTestFinished, dispatch])
 
   // when the test started
   useEffect(() => {
@@ -34,8 +39,20 @@ const InputField = () => {
     setTextTemplateSplitted(textTemplate.value.split(''))
   }, [textTemplate])
 
+  // disable finish button if text is not entered
+  useEffect(() => {
+    if (isTestStarted && inputText.length === textTemplate.value.length) {
+      dispatch(setIsTextEntered(true))
+    }
+  }, [isTestStarted, inputText, textTemplate, dispatch])
+
+  // check each entered letter
   const onKeyPressHandler = (event: KeyboardEvent<HTMLDivElement>, index: number) => {
-    if (event.key !== textTemplateSplitted[index]) {
+    let checkedLetter = textTemplateSplitted[index]
+    if (event.key !== checkedLetter) {
+      if (checkedLetter === 'ё' && event.key === 'е') {
+        return setLetterIndex(index + 1)
+      }
       event.preventDefault()
       return false
     }
@@ -48,9 +65,9 @@ const InputField = () => {
   return (
     <Paper elevation={4}>
       <TextField
-        value={value}
+        value={inputText}
         onChange={(event) => {
-          setValue(event.target.value)
+          setInputText(event.target.value)
         }}
         onKeyPress={(event) => {
           onKeyPressHandler(event, letterIndex)
