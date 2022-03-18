@@ -15,10 +15,18 @@ const theme = createTheme({
     secondary: { main: orange[300], light: '#ffe97d', dark: '#c88719' },
   },
   components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontSize: 'inherit',
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
           textTransform: 'none',
+          fontSize: 'inherit',
         },
       },
     },

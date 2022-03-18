@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { useAppDispatch, useAppSelector } from 'hooks/redux'
 import { Button, List, ListItem, ListItemText, Paper } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import { clearResult } from 'store/reducers/TypingTestSlice'
 
-const TestResult = () => {
+const TestResult = forwardRef<HTMLButtonElement>(({}, ref) => {
   const { result, resultTime } = useAppSelector((state) => state.TypingTestReducer)
   const dispatch = useAppDispatch()
 
@@ -38,15 +38,16 @@ const TestResult = () => {
       </List>
       <Button
         onClick={onStartAgain}
+        ref={ref}
         color='secondary'
-        sx={{ width: '200px', marginTop: '30px' }}
+        sx={{ width: '300px', marginTop: '30px' }}
         variant='contained'
         size='large'
       >
-        Начать заново
+        Начать заново (Enter)
       </Button>
     </Paper>
   )
-}
+})
 
 export default TestResult
