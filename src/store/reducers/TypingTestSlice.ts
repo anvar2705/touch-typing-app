@@ -5,46 +5,37 @@ import { DEFAULT_USERNAME } from 'constants/constants'
 import { ITextTemplate } from 'constants/textTemplates'
 
 interface UISliceInitialState {
-  username: string
-  textTemplate: ITextTemplate
-  resultTime: IResultTime
-  resultText: string
+  isShowResult: boolean
   isTestStarted: boolean
   isTestFinished: boolean
-  isShowResult: boolean
+  isTextEntered: boolean
   result: number
   resultTable: Array<IResultTableItem>
-  isTextEntered: boolean
+  resultText: string
+  resultTime: IResultTime
+  textTemplate: ITextTemplate
+  username: string
 }
 
 const initialState: UISliceInitialState = {
-  username: DEFAULT_USERNAME,
-  textTemplate: { id: 0, value: '' },
-  resultTime: { m: 0, s: 0, ms: 0 },
-  resultText: '',
+  isShowResult: false,
   isTestStarted: false,
   isTestFinished: false,
-  isShowResult: false,
+  isTextEntered: false,
   result: 0,
   resultTable: [],
-  isTextEntered: false,
+  resultText: '',
+  resultTime: { m: 0, s: 0, ms: 0 },
+  textTemplate: { id: 0, value: '' },
+  username: DEFAULT_USERNAME,
 }
 
 const TypingTestSlice = createSlice({
   name: 'TypingTest',
   initialState,
   reducers: {
-    setUsername: (state, action: PayloadAction<string>) => {
-      state.username = action.payload
-    },
-    setTextTemplate: (state, action: PayloadAction<ITextTemplate>) => {
-      state.textTemplate = action.payload
-    },
-    setResultTime: (state, action: PayloadAction<IResultTime>) => {
-      state.resultTime = action.payload
-    },
-    setResultText: (state, action: PayloadAction<string>) => {
-      state.resultText = action.payload
+    setIsShowResult: (state, action: PayloadAction<boolean>) => {
+      state.isShowResult = action.payload
     },
     setIsTestStarted: (state, action: PayloadAction<boolean>) => {
       state.isTestStarted = action.payload
@@ -52,11 +43,20 @@ const TypingTestSlice = createSlice({
     setIsTestFinished: (state, action: PayloadAction<boolean>) => {
       state.isTestFinished = action.payload
     },
-    setIsShowResult: (state, action: PayloadAction<boolean>) => {
-      state.isShowResult = action.payload
-    },
     setIsTextEntered: (state, action: PayloadAction<boolean>) => {
       state.isTextEntered = action.payload
+    },
+    setResultText: (state, action: PayloadAction<string>) => {
+      state.resultText = action.payload
+    },
+    setResultTime: (state, action: PayloadAction<IResultTime>) => {
+      state.resultTime = action.payload
+    },
+    setTextTemplate: (state, action: PayloadAction<ITextTemplate>) => {
+      state.textTemplate = action.payload
+    },
+    setUsername: (state, action: PayloadAction<string>) => {
+      state.username = action.payload
     },
     calcResult: (state) => {
       const minutes = state.resultTime.m + state.resultTime.s / 60 + state.resultTime.ms / 600

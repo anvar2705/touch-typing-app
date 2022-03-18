@@ -17,7 +17,10 @@ const ButtonAppBar = () => {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position='static' sx={{ height: 40, justifyContent: 'center' }}>
+        <AppBar
+          position='absolute'
+          sx={{ height: 40, justifyContent: 'center', top: 0, left: 0, zIndex: 10 }}
+        >
           <Toolbar>
             <IconButton
               onClick={onClick}
